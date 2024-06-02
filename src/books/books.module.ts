@@ -1,13 +1,25 @@
 import { Module } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { BooksResolver } from './books.resolver';
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { Book } from "./entities/book.entity";
-import { BooksController } from './books.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Book } from './entities/book.entity';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { join } from 'path';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Book])],
+  imports: [
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      typePaths: ['./**/*.graphql'],
+      definitions: {
+        path: join(process.cwd(), 'src/books/graphql.ts'),
+        outputAs: 'class',
+      },
+    }),
+    TypeOrmModule.forFeature([Book]),
+  ],
   providers: [BooksResolver, BooksService],
-  controllers: [BooksController],
+  controllers: [],
 })
 export class BooksModule {}
