@@ -7,6 +7,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 
+/* The modules handles the GraphQL, Apollo server flows */
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({

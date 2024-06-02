@@ -3,6 +3,7 @@ import { ElasticBooksService } from './elastic-books.service';
 import { ElasticBooksController } from './elastic-books.controller';
 import { ElasticsearchModule } from '@nestjs/elasticsearch';
 
+/* The module handles the elastic search flows */
 @Module({
   imports: [
     ElasticsearchModule.registerAsync({
